@@ -1,5 +1,5 @@
 package com.threading;
-//Not Working
+//Not properly Working
 
 import java.awt.Color;
 import java.awt.Frame;
