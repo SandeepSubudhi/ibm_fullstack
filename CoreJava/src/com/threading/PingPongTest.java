@@ -1,54 +1,53 @@
 package com.threading;
 
 /* 	//has-a Relationship
-public class PingPongTest implements Runnable {
-
-Thread t1,t2;
-public PingPongTest() {
-t1=new Thread(this);
-t2=new Thread(this);
-t1.setName("Ping");
-t2.setName("Pong");
-t1.start();
-t2.start();
-}
-public static void main(String[] args) {
-// TODO Auto-generated method stub
-new PingPongTest();
-
-}
-@Override
-public void run() {
-Thread currentThread=Thread.currentThread();
-if(currentThread.getName().equals("Ping"))
-{
-for(int i=0;i<30;i++)
-{
-System.out.println("\tPING");
-try {
-Thread.sleep(300);
-} catch (InterruptedException e) {
-// TODO Auto-generated catch block
-e.printStackTrace();
-}
-
-}
-}
-else
-{
-for(int i=0;i<30;i++)
-{
-System.out.println("PONG");
-try {
-Thread.sleep(380);
-} catch (InterruptedException e) {
-// TODO Auto-generated catch block
-e.printStackTrace();
-}
-
-}
-}
-}
+public class PingPongTest implements Runnable
+ {
+	Thread t1,t2;
+	public PingPongTest() 
+	{
+		t1=new Thread(this);
+		t2=new Thread(this);
+		t1.setName("Ping");
+		t2.setName("Pong");
+		t1.start();
+		t2.start();
+	}
+	public static void main(String[] args)
+ 	{
+		new PingPongTest();
+	}
+	@Override
+	public void run()
+	 {
+		Thread currentThread=Thread.currentThread();
+		if(currentThread.getName().equals("Ping"))
+		{
+			for(int i=0;i<30;i++)
+			{
+				System.out.println("\tPING");
+				try {
+					Thread.sleep(300);
+				} catch (InterruptedException e)
+				 {
+					e.printStackTrace();
+				}
+			}
+		}
+		else
+		{
+			for(int i=0;i<30;i++)
+			{
+					System.out.println("PONG");
+				try {
+					Thread.sleep(380);
+				} catch (InterruptedException e) 
+				{
+				e.printStackTrace();
+				}
+			}
+		}
+	}
 
 }*/
 
