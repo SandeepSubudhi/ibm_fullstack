@@ -1,0 +1,10 @@
+@charset "ISO-8859-1";
+div.box{
+	width: 420px;
+	height: 40px;
+	outline-color: green;
+	outline-style: dotted;
+	border-style: solid;
+	border-color: red;
+	border-width:2px;
+}

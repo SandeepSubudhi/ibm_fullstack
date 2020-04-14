@@ -1,0 +1,13 @@
+@charset "ISO-8859-1";
+h1{
+	font-weight:900;
+}
+h2{
+	text-decoration: line-through;
+}
+h3{
+	text-decoration: underline;
+}
+h4{
+	 text-decoration: overline;
+}
