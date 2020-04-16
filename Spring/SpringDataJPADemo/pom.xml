@@ -10,11 +10,16 @@
   <name>SpringRestful</name>
   <url>http://maven.apache.org</url>
 
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven.compiler.target>1.8</maven.compiler.target>
-        <maven.compiler.source>1.8</maven.compiler.source>
-    </properties>
+<properties>
+
+<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+<maven.compiler.target>1.8</maven.compiler.target>
+
+<maven.compiler.source>1.8</maven.compiler.source>
+
+</properties>
+
   <dependencies>
     <dependency>
       <groupId>junit</groupId>
@@ -82,25 +87,25 @@
 </dependency>
 
   </dependencies>
-<build>
+
+    <build>
 		<plugins>
-		<plugin>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-maven-plugin</artifactId>
-			<executions>
-				<execution>
-					<goals>
-						<goal>repackage</goal>
-					</goals>
-					<configuration>
-						<mainClass>
-						com.spring.UserApp
-						</mainClass>
-					</configuration>
-				</execution>
-			</executions>
-		</plugin>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<goals>
+							<goal>repackage</goal>
+						</goals>
+						<configuration>					
+							<mainClass>
+							  com.spring.UserApp
+							</mainClass>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
 		</plugins>
 	</build>
-    
 </project>

@@ -1,6 +1,7 @@
 package com.spring.service;
 
 import java.util.List;
+import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,31 +17,8 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	private UserRepository userRepository;
 	
-	public String login(User user) {
-		String userName=user.getUserName();
-		String password=user.getPassword();
-		List<UserEntity> userList=userRepository.findByUserName(userName);
-		if(userList==null||userList.size()==0)
-		{
-			return"{\"result\":\"failed\",\"message\":\"Invalid user\""+userName+"}";
-		}
-		else {
-			UserEntity userEntity=userList.get(0);
-			if(password.equals(userEntity.getPassword())) {
-				String sessionId=new java.rmi.server.UID().toString().substring(0, 10);
-				userEntity.setSessionId(sessionId);
-				userRepository.save(userEntity);
-				return"{\"result\":\"success\",\"message\":\"Iogin Successful\",\"auth-token\":\""+sessionId+"\"}";
-			}
-			else
-			{
-				return"{\"result\":\"failed\",\"message\":\"Invalid password\"\"}";
-			}
-		}
-	}
-
 	public User save(User user) {
-		UserEntity userEntity = 
+		UserEntity userEntity =
 				userRepository.save(UserUtils.convertUserToUserEntity(user));
 		return UserUtils.convertUserEntityToUser(userEntity);
 	}
@@ -55,13 +33,7 @@ public class UserServiceImpl implements UserService {
 		return UserUtils.convertUserEntityToUser(userEntity);
 	}
 
-	@Override
-	public List<User> getUsersByFirstName(String firstName) {
-		List<UserEntity> userEntityList = userRepository.findByFirstName(firstName);
-		return UserUtils.convertUserEntityListToUserList(userEntityList);
-	}
-
-	@Override
+	
 	public User update(User user, String id) {
 		UserEntity userEntity = userRepository.findById(Long.valueOf(id)).get();
 		if(userEntity != null) {
@@ -74,26 +46,60 @@ public class UserServiceImpl implements UserService {
 		return null;
 	}
 
-	@Override
+	
 	public boolean delete(String id) {
-		if(userRepository.existsById(Long.valueOf(id))) {
+		if(userRepository.existsById(Long.valueOf(id))) 
+		{
 			userRepository.deleteById(Long.valueOf(id));
 			return true;
 		}
 		return false;
 	}
 
-	@Override
-	public List<User> getUsersByOrderByFirstNameAsc() {
-		List<UserEntity> userEntityList = userRepository.findByOrderByFirstNameAsc();
-		return UserUtils.convertUserEntityListToUserList(userEntityList);
-	}
-
-	@Override
-	public List<User> getUsersByOrderByFirstNameDesc() {
-		List<UserEntity> userEntityList = userRepository.findByOrderByFirstNameDesc();
-		return UserUtils.convertUserEntityListToUserList(userEntityList);
+	
+	public String login(User user) 
+	{
+		String sessionId=null;
+		Random random =new Random();
+		User newUser =UserUtils.convertUserEntityToUser(userRepository.findByUserName(user.getUserName()));
+		
+			if (newUser.getUserName().equals(user.getUserName()))
+			{
+				if(newUser.getPassword().equals(user.getPassword()))
+				{
+					 sessionId = Integer.toString(random.nextInt(10000));
+					UserEntity userEntity = userRepository.findById(Long.valueOf(newUser.getId())).get();
+					userEntity.setSessionId(sessionId);
+					userEntity =userRepository.save(userEntity);
+					return "{\"result\": \"success\",\"auth-token\":\""+sessionId+"\"}";
+				}
+				else 
+				{
+					return "{\"result\": \"invalid Password\"}";
+				}
+			}	
+		else 
+			return "{\"result\": \"Invalid User\"}";
+		
 	}
 
 	
+	public String logout(String authToken) 
+	{
+		if (authToken.equals(null))
+		{
+			return "{\"result\": \"Invalid Session-Id\"}";
+		}
+		else
+		{
+		UserEntity userEntity= userRepository.findBySessionId(authToken);
+		userEntity.setSessionId(null);
+		userEntity =userRepository.save(userEntity);
+		return "{\"result\": \"Sucess\"}";
+		}
+	}
+
+
+	
 }
+

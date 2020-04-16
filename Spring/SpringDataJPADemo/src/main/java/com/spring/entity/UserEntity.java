@@ -1,9 +1,15 @@
 package com.spring.entity;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -24,54 +30,125 @@ public class UserEntity {
 	@Column(name = "PASSWORD")
 	private String password;
 	
+	@Column(name = "EMAIL")
+	private String email;
+	
 	@Column(name = "SESSION_ID")
 	private String sessionId;
-	public UserEntity(String userName, String firstName, String password) {
-		this.userName = userName;
-		this.firstName = firstName;;
-		this.password = password;
-	}
+	
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JoinColumn(name="user_id")
+	private List<AdvertiseEntity> advertiseList;
+	
 
 	public UserEntity() {
+		super();
+	}
+
+	public UserEntity(String userName, String firstName, String password, String email, String sessionId) {
+		super();
+		this.userName = userName;
+		this.firstName = firstName;
+		this.password = password;
+		this.email = email;
+		this.sessionId = sessionId;
+	}
+	public UserEntity(String userName, String firstName, String password, String email) {
+		super();
+		this.userName = userName;
+		this.firstName = firstName;
+		this.password = password;
+		this.email = email;
 		
 	}
-	
+
+
+
+	public List<AdvertiseEntity> getAdvertiseList() {
+		return advertiseList;
+	}
+
+	public void setAdvertiseList(List<AdvertiseEntity> advertiseList) {
+		this.advertiseList = advertiseList;
+	}
+
 	public long getId() {
 		return id;
 	}
+
+
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+
 
 	public String getUserName() {
 		return userName;
 	}
 
+
+
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
+
+
 
 	public String getFirstName() {
 		return firstName;
 	}
 
+
+
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
 	}
+
+
 
 	public String getPassword() {
 		return password;
 	}
 
+
+
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
+
+
+	public String getEmail() {
+		return email;
+	}
+
+
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+
+
 	public String getSessionId() {
 		return sessionId;
 	}
+
+
 
 	public void setSessionId(String sessionId) {
 		this.sessionId = sessionId;
 	}
 
+
+
+	@Override
 	public String toString() {
-		return firstName + "\t" + userName + "\t" + password;
+		return "UserEntity [id=" + id + ", userName=" + userName + ", firstName=" + firstName + ", password=" + password
+				+ ", email=" + email + ", sessionId=" + sessionId + "]";
 	}
+
+	
 }

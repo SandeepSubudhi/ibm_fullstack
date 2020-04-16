@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -25,12 +26,6 @@ public class UserController {
 	@Autowired
 	private UserService registrationService;
 
-	@PostMapping(value="/user/login", produces=MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody String login(@RequestBody User user) {
-		return registrationService.login(user);
-	}
-	
-	
 	@GetMapping("/user")
 	public List<User> getAllUsers() {
 		return registrationService.getAllUsers();
@@ -50,23 +45,21 @@ public class UserController {
 	public @ResponseBody User updateUser(@RequestBody User user, @PathVariable(value="id") String id) {
 		return registrationService.update(user, id);
 	}
+	
+	@PostMapping(value="/user/login", produces=MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody String loginUser(@RequestBody User user) {
+		return registrationService.login(user);
+	}
+	@PostMapping(value="/user/logout", produces=MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody String logoutUser(@RequestHeader(name="auth-token") String authToken) {
+		return registrationService.logout(authToken);
+	}
 
 	@DeleteMapping(value="/user/{id}")
 	public boolean deleteUser(@PathVariable(value="id") String id) {
 		return registrationService.delete(id);
 	}
 
-	@GetMapping("/user/firstname/{firstName}")
-	public List<User> getUsersByFirstName(@PathVariable(value="firstName") String firstName) {
-		return registrationService.getUsersByFirstName(firstName);
-	}
-
-	@GetMapping("/user/firstname/sort/asc")
-	public List<User> getUsersByOrderByFirstNameAsc() {
-		return registrationService.getUsersByOrderByFirstNameAsc();
-	}
-	@GetMapping("/user/firstname/sort/desc")
-	public List<User> getUsersByOrderByFirstNameDesc() {
-		return registrationService.getUsersByOrderByFirstNameDesc();
-	}
+	
+	
 }

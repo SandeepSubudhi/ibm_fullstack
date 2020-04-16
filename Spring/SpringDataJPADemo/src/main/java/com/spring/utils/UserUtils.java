@@ -18,10 +18,10 @@ public class UserUtils {
 	
 	public static User convertUserEntityToUser(UserEntity userEntity) {
 		return new User(userEntity.getId(), userEntity.getUserName(), 
-				userEntity.getFirstName(), userEntity.getPassword());
+				userEntity.getFirstName(), userEntity.getPassword(),userEntity.getEmail(),userEntity.getSessionId());
 	}
 
 	public static UserEntity convertUserToUserEntity(User user) {
-		return new UserEntity(user.getUserName(), user.getFirstName(), user.getPassword());
+		return new UserEntity(user.getUserName(), user.getFirstName(), user.getPassword(),user.getEmail(),user.getSessionId());
 	}
 }
