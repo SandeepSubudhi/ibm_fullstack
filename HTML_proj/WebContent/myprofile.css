@@ -1,0 +1,32 @@
+@charset "ISO-8859-1";
+body{
+	background-image: url('images/bg_image.png');
+	background-repeat: no-repeat;
+	background-position: top 100%;
+}
+h1{
+	color:White ;
+	font-family:American Typewriter, serif;
+	text-decoration: underline;
+}
+img{
+	Hspace="0";
+    Vspace="0";
+	border-style: solid;
+	border-width:2px;
+}
+a{
+	display: inline-block;
+    width: 200px;
+    height: 48px;
+    line-height: 48px;
+    margin-top: 1em;
+    background: #09198A;
+    font-size: 12px;
+    color: #fff;
+    text-transform: uppercase;
+    text-decoration:none;
+    text-align: center;
+    border-radius: 4px;
+}
+}
